@@ -1,22 +1,28 @@
-import React from "react";
 
-import "./App.css";
+import React, { useState } from 'react';
 
-const recipes = [
-  {
-    author: "Jim",
-    name: "Chicken Curry",
-    description: "Delicious spicy chicken curry",
-  },
-  {
-    author: "Aravind",
-    name: "Hamburger",
-    description: "Juicy burger with toppings and a soft bun",
-  },
-];
+import { recipes } from './data.js';
+import './App.css'; 
+import RecipeList from './components/recipelist.js';
+import RecipeDetail from './components/recipedetail.js';
 
 function App() {
-  return <div className="App">Let's add some content here</div>;
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  const handleRecipeSelect = (recipe) => {
+    setSelectedRecipe(recipe);
+  };
+
+  return (
+    <div className="app">
+      <div className="left-panel">
+        <RecipeList recipes={recipes} onRecipeSelect={handleRecipeSelect} />
+      </div>
+      <div className="right-panel">
+        <RecipeDetail recipe={selectedRecipe} />
+      </div>
+    </div>
+  );
 }
 
 export default App;
